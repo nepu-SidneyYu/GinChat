@@ -9,9 +9,9 @@ import (
 )
 
 type User struct {
-	ID    int64
-	Name  string
-	Email string
+	ID    int64  `gorm:"column:id"`
+	Name  string `gorm:"column:name"`
+	Email string `gorm:"column:phone"`
 }
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 		Passwd:               "123456", //os.Getenv("DBPASS"),
 		Net:                  "tcp",
 		Addr:                 "127.0.0.1:3306",
-		DBName:               "test",
+		DBName:               "users",
 		AllowNativePasswords: true,
 	}
 	db, err := sql.Open("mysql", cfg.FormatDSN())
@@ -37,13 +37,8 @@ func main() {
 		errors.New("query incur error")
 	}
 	for rows.Next() {
-		e := rows.Scan(user.ID, user.Name, user.Email)
-
-		if e != nil {
-			fmt.Printf("%#v\n", user)
-
-			//fmt.Println(json.Marshal(user))
-		}
+		rows.Scan(&user.ID, &user.Name, &user.Email)
+		fmt.Printf("%#v\n", user)
 	}
 	rows.Close()
 }
