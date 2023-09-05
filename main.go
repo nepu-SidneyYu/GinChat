@@ -11,4 +11,5 @@ func main() {
 		c.String(http.StatusOK, "Hello World")
 	})
 	router.Run(":8000")
+	return
 }

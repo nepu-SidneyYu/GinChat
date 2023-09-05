@@ -52,4 +52,5 @@ func main() {
 		fmt.Printf("%#v\n", user)
 	}
 	rows.Close()
+
 }
